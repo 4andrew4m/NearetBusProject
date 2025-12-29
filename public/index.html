@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Автобусні рейси</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Пошук автобусних рейсів</h1>
+  <a href="#" id="loginLink">Log in</a>
+</header>
+
+<main>
+  <div class="search-box">
+    <select id="from">
+      <option disabled selected>Місто відправки</option>
+      <option>Київ</option>
+      <option>Львів</option>
+    </select>
+
+    <select id="to">
+      <option disabled selected>Місто прибуття</option>
+      <option>Київ</option>
+      <option>Львів</option>
+    </select>
+
+    <button onclick="loadTrips()">Підтвердити</button>
+  </div>
+
+  <div id="results"></div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
