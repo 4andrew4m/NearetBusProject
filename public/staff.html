@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Персонал станції</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Керування місцями</h1>
+<div id="trips"></div>
+
+<script>
+const code = new URLSearchParams(location.search).get("code");
+
+fetch(`/station-trips/${code}`)
+  .then(r=>r.json())
+  .then(trips => {
+    const div = document.getElementById("trips");
+    trips.forEach(t => {
+      const box = document.createElement("div");
+      box.className = "trip";
+      box.innerHTML = `<b>${t.time}</b><br>`;
+      for(let i=1;i<=17;i++){
+        box.innerHTML += `
+          <label>
+            <input type="checkbox" ${t.seats.includes(i)?"checked":""}
+            onchange="toggle(${t.id},${i},this.checked)">
+            №${i}
+          </label>`;
+      }
+      div.appendChild(box);
+    });
+  });
+
+let updates = {};
+function toggle(tripId, seat, checked){
+  updates[tripId] ??= [];
+  checked ? updates[tripId].push(seat)
+          : updates[tripId]=updates[tripId].filter(s=>s!==seat);
+}
+</script>
+</body>
+</html>
